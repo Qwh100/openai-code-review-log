@@ -116,10 +116,12 @@
 | CODE_TOKEN | GitHub 个人访问令牌，用于访问仓库 |
 | CODE_REVIEW_LOG_URI | 代码评审日志服务的 URI 如(https://github.com/Qwh100/openai-code-review-log) |
 | MODEL_NAME | 使用的 OpenAI 模型名称（目前可选值"DeepSeek"或"ChatGLM"） |
-| WEIXIN_APPID | 微信公众号 AppID |
-| WEIXIN_SECRET | 微信公众号 AppSecret |
+| WEIXIN_APPID | 微信公众号 appID |
+| WEIXIN_SECRET | 微信公众号 appsecret |
 | WEIXIN_TOUSER | 接收消息的用户 OpenID |
 | WEIXIN_TEMPLATE_ID | 消息模板 ID |
+![image](https://github.com/user-attachments/assets/8bdd9f89-af46-4dc2-ad3f-ed41b61abcf0)
+
 
 ### 3. 微信公众平台配置
 
@@ -142,6 +144,8 @@
 4. 获取用户 OpenID： （用户微信扫描测试公众号二维码可获取）
    - 可通过公众号的用户管理功能获取
    - 将 OpenID 添加到 GitHub Secrets 的 WEIXIN_TOUSER 中
+![image](https://github.com/user-attachments/assets/2dcff054-182f-4b27-a4d5-37809dd4653d)
+
 
 ## 使用说明
 
