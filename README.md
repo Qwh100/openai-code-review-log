@@ -22,6 +22,7 @@
 ### 1. 工作流配置
 
 1. 在项目根目录创建以下目录结构：
+
    ```
    .github/
    └── workflows/
@@ -29,12 +30,13 @@
    ```
 
 2. 将提供的工作流配置复制到 `main-remote-jar.yml` 文件中。该工作流将在以下情况触发：
+
    - 向 master 分支推送代码时
    - 创建或更新针对 master 分支的 Pull Request 时
 
    ```yml
    name: OpenAI Code Review
-
+   
    on:
      push:
        branches:
@@ -42,29 +44,29 @@
      pull_request:
        branches:
          - master
-
+   
    jobs:
      code-review:
        runs-on: ubuntu-latest
-
+   
        steps:
          - name: Checkout repository
            uses: actions/checkout@v3
            with:
              fetch-depth: 0
-
+   
          - name: Set up JDK 11
            uses: actions/setup-java@v3
            with:
              distribution: 'temurin'
              java-version: '11'
-
+   
          - name: Download SDK JAR
            run: |
              mkdir -p ./libs
              wget -O ./libs/openai-code-review-sdk-1.0.jar \
                https://github.com/Qwh100/openai-code-review-log/releases/download/v1.0/openai-code-review-sdk-1.0.jar
-
+   
          - name: Set Push Event Variables
            if: github.event_name == 'push'
            run: |
@@ -72,7 +74,7 @@
              echo "AFTER_COMMIT=${{ github.event.after }}" >> $GITHUB_ENV
              echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
              echo "TARGET_BRANCH=origin/${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-
+   
          - name: Set PR Event Variables
            if: github.event_name == 'pull_request'
            run: |
@@ -80,13 +82,13 @@
              echo "TARGET_BRANCH=origin/${{ github.base_ref }}" >> $GITHUB_ENV
              echo "BEFORE_COMMIT=0000000000000000000000000000000000000000" >> $GITHUB_ENV
              echo "AFTER_COMMIT=0000000000000000000000000000000000000000" >> $GITHUB_ENV
-
+   
          - name: Set Common Variables
            run: |
              echo "REPO_NAME=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
              echo "COMMIT_AUTHOR=$(git log -1 --pretty=format:'%an <%ae>')" >> $GITHUB_ENV
              echo "COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')" >> $GITHUB_ENV
-
+   
          - name: Run Code Review
            run: java -jar ./libs/openai-code-review-sdk-1.0.jar
            env:
@@ -111,15 +113,16 @@
 
 在仓库的 Settings -> Secrets and variables -> Actions 中添加以下 secrets：
 
-| Secret 名称 | 说明 |
-|------------|------|
-| CODE_TOKEN | GitHub 个人访问令牌，用于访问仓库 |
+| Secret 名称         | 说明                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| CODE_TOKEN          | GitHub 个人访问令牌，用于访问仓库                            |
 | CODE_REVIEW_LOG_URI | 代码评审日志服务的 URI 如(https://github.com/Qwh100/openai-code-review-log) |
-| MODEL_NAME | 使用的 OpenAI 模型名称（目前可选值"DeepSeek"或"ChatGLM"） |
-| WEIXIN_APPID | 微信公众号 appID |
-| WEIXIN_SECRET | 微信公众号 appsecret |
-| WEIXIN_TOUSER | 接收消息的用户 OpenID |
-| WEIXIN_TEMPLATE_ID | 消息模板 ID |
+| MODEL_NAME          | 使用的 OpenAI 模型名称（目前可选值"DeepSeek"或"ChatGLM"）    |
+| WEIXIN_APPID        | 微信公众号 appID                                             |
+| WEIXIN_SECRET       | 微信公众号 appsecret                                         |
+| WEIXIN_TOUSER       | 接收消息的用户 OpenID                                        |
+| WEIXIN_TEMPLATE_ID  | 消息模板 ID                                                  |
+
 ![image](https://github.com/user-attachments/assets/8bdd9f89-af46-4dc2-ad3f-ed41b61abcf0)
 
 
@@ -128,12 +131,16 @@
 1. 登录[微信公众平台](https://mp.weixin.qq.com/)
 
 2. 获取接口配置信息：
+
    - 获取 appID 和 appsecret（测试号信息）
    - 将这些值添加到 GitHub Secrets 中
 
 3. 配置消息模板：
+
    - 进入"模板消息接口"
+
    - 新建测试模板，使用以下格式：
+
      ```
      项目：{{repo_name.DATA}}
      分支：{{branch_name.DATA}}
@@ -142,10 +149,11 @@
      ```
 
 4. 获取用户 OpenID： （用户微信扫描测试公众号二维码可获取）
+
    - 可通过公众号的用户管理功能获取
    - 将 OpenID 添加到 GitHub Secrets 的 WEIXIN_TOUSER 中
-![image](https://github.com/user-attachments/assets/2dcff054-182f-4b27-a4d5-37809dd4653d)
 
+![image](https://github.com/user-attachments/assets/2dcff054-182f-4b27-a4d5-37809dd4653d)
 
 ## 使用说明
 
