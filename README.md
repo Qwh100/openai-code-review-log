@@ -123,6 +123,7 @@
 | WEIXIN_TOUSER       | 接收消息的用户 OpenID                                        |
 | WEIXIN_TEMPLATE_ID  | 消息模板 ID                                                  |
 
+如
 ![image](https://github.com/user-attachments/assets/8bdd9f89-af46-4dc2-ad3f-ed41b61abcf0)
 
 
@@ -153,6 +154,7 @@
    - 可通过公众号的用户管理功能获取
    - 将 OpenID 添加到 GitHub Secrets 的 WEIXIN_TOUSER 中
 
+如
 ![image](https://github.com/user-attachments/assets/2dcff054-182f-4b27-a4d5-37809dd4653d)
 
 ## 使用说明
