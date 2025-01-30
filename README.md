@@ -177,6 +177,3 @@
 - 注意 OpenAI API 的使用配额
 - 保护好各项密钥信息
 
-## 支持与反馈
-
-如有问题或建议，请提交 Issue 或 Pull Request。 
