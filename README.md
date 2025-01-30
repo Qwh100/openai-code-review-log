@@ -115,7 +115,7 @@
 | Secret 名称 | 说明 |
 |------------|------|
 | CODE_TOKEN | GitHub 个人访问令牌，用于访问仓库 |
-| CODE_REVIEW_LOG_URI | 代码评审日志服务的 URI 如（[text](https://github.com/Qwh100/openai-code-review-log)） |
+| CODE_REVIEW_LOG_URI | 代码评审日志服务的 URI 如(https://github.com/Qwh100/openai-code-review-log) |
 | MODEL_NAME | 使用的 OpenAI 模型名称（目前可选值"DeepSeek"或"ChatGLM"） |
 | WEIXIN_APPID | 微信公众号 AppID |
 | WEIXIN_SECRET | 微信公众号 AppSecret |
